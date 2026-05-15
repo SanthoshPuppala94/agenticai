@@ -1,0 +1,9 @@
+Graph RAG Knowledge Assistant is a document question-answering system for technical teams. The system splits raw documents into searchable chunks, extracts important entities, and stores relationships between documents, chunks, and entities in a knowledge graph.
+
+Hybrid Retrieval combines lexical search with graph traversal. Lexical search finds chunks that share important words with the question. Graph traversal expands the context by following entity relationships, which helps the assistant recover related evidence even when the exact words do not match.
+
+The default implementation uses an in-memory graph store so the project can run on any laptop. A production deployment can use Neo4j for persistent graph storage, full-text indexes, and vector search. The retrieval layer is designed so the storage backend can be replaced without changing the API.
+
+Ollama can be used as the local language model runtime. When Ollama is not available, the assistant still returns an extractive answer grounded in the highest scoring evidence. This keeps the demo reliable for reviewers and GitHub visitors.
+
+The API exposes a health endpoint and an ask endpoint. The ask endpoint retrieves grounded context, sends the evidence to the answer generator, and returns source chunks with scores and related graph entities.
